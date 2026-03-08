@@ -15,3 +15,6 @@ MAX_LENGTH = 128
 
 # Server (Railway injects PORT at runtime; defaults to 8000 locally)
 PORT = int(os.environ.get("PORT", 8000))
+
+# Authentication
+API_KEY = os.environ.get("API_KEY", "demo-key-gl-sentiment-2024")

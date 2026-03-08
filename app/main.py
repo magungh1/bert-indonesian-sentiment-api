@@ -1,8 +1,9 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.auth import verify_api_key
 from app.model import SentimentModel
 from app.schemas import (
     BatchPredictionRequest,
@@ -41,7 +42,7 @@ async def health_check():
     return HealthResponse(status="healthy", model_loaded=model.session is not None)
 
 
-@app.post("/predict", response_model=PredictionResponse)
+@app.post("/predict", response_model=PredictionResponse, dependencies=[Depends(verify_api_key)])
 async def predict_sentiment(request: PredictionRequest):
     result = model.predict(request.text)
     scores = [SentimentScore(label=k, score=v) for k, v in result["scores"].items()]
@@ -53,7 +54,7 @@ async def predict_sentiment(request: PredictionRequest):
     )
 
 
-@app.post("/predict/batch", response_model=list[PredictionResponse])
+@app.post("/predict/batch", response_model=list[PredictionResponse], dependencies=[Depends(verify_api_key)])
 async def predict_batch(request: BatchPredictionRequest):
     results = model.predict_batch(request.texts)
     responses = []

@@ -1,0 +1,12 @@
+notebooks/
+scripts/
+requirements-quantize.txt
+.git/
+.gitignore
+.gitattributes
+__pycache__/
+*.pyc
+.env
+README.md
+*.png
+model_onnx/

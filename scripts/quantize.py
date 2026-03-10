@@ -13,7 +13,7 @@ import shutil
 
 from optimum.onnxruntime import ORTModelForSequenceClassification, ORTQuantizer
 from optimum.onnxruntime.configuration import AutoQuantizationConfig
-from transformers import AutoTokenizer
+from transformers import AutoConfig, AutoTokenizer
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -25,8 +25,10 @@ QUANTIZED_DIR = "./models"
 print("Step 1: Exporting model to ONNX...")
 model = ORTModelForSequenceClassification.from_pretrained(MODEL_ID, export=True)
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+config = AutoConfig.from_pretrained(MODEL_ID)
 model.save_pretrained(ONNX_DIR)
 tokenizer.save_pretrained(ONNX_DIR)
+config.save_pretrained(ONNX_DIR)
 print(f"  -> {ONNX_DIR}")
 
 # Step 2: Quantize (dynamic INT8, CPU)

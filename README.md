@@ -43,6 +43,15 @@ Health check.
 }
 ```
 
+**curl example:**
+
+```bash
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: demo-key-gl-sentiment-2024" \
+  -d '{"text": "Film ini sangat bagus dan menarik!"}'
+```
+
 Response:
 
 ```json
@@ -64,6 +73,15 @@ Response:
 {
   "texts": ["Pelayanannya sangat buruk", "Biasa saja"]
 }
+```
+
+**curl example:**
+
+```bash
+curl -X POST http://localhost:8000/predict/batch \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: demo-key-gl-sentiment-2024" \
+  -d '{"texts": ["Pelayanannya sangat buruk", "Biasa saja"]}'
 ```
 
 ## Deploy on Railway

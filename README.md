@@ -43,13 +43,17 @@ Health check.
 }
 ```
 
-**curl example:**
+**Python requests example:**
 
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -H "x-api-key: demo-key-gl-sentiment-2024" \
-  -d '{"text": "Film ini sangat bagus dan menarik!"}'
+```python
+import requests
+
+response = requests.post(
+    "http://localhost:8000/predict",
+    headers={"x-api-key": "demo-key-gl-sentiment-2024"},
+    json={"text": "Film ini sangat bagus dan menarik!"},
+)
+print(response.json())
 ```
 
 Response:
@@ -75,13 +79,17 @@ Response:
 }
 ```
 
-**curl example:**
+**Python requests example:**
 
-```bash
-curl -X POST http://localhost:8000/predict/batch \
-  -H "Content-Type: application/json" \
-  -H "x-api-key: demo-key-gl-sentiment-2024" \
-  -d '{"texts": ["Pelayanannya sangat buruk", "Biasa saja"]}'
+```python
+import requests
+
+response = requests.post(
+    "http://localhost:8000/predict/batch",
+    headers={"x-api-key": "demo-key-gl-sentiment-2024"},
+    json={"texts": ["Pelayanannya sangat buruk", "Biasa saja"]},
+)
+print(response.json())
 ```
 
 ## Deploy on Railway
